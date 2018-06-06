@@ -8,7 +8,7 @@ import banner3 from '../../media/images/banner3.jpg';
 export default class Banner extends Component {
   render() {
     return (
-        <Swiper style={styles.wrapper} autoplay showsButtons={true}>
+        <Swiper style={styles.wrapper} height={250} autoplay showsButtons={true}>
             <View style={styles.slide1}>
                 <Image source={banner1}/>
             </View>
