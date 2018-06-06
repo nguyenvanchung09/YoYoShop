@@ -6,19 +6,62 @@ import {
     Image,
     TouchableOpacity,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    Alert,
+    AsyncStorage
 } from 'react-native';
 import background from '../../media/images/bg-login.jpg';
 import logo from '../../media/images/logo-app.png';
+import {firebaseApp} from '../databaseConfig';
 
 export default class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            user:'',
-            pasword:''
+            loading: false,
+            email:'',
+            password:''
         }
     }
+
+    Dangnhap = () => {
+        firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then((userData) => {
+            // Alert.alert(
+            //     'Alert Title',
+            //     'Dang nhap thanh cong : ' + this.state.email,
+            //     [
+            //       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            //       {text: 'OK', onPress: () => this.props.navigation.navigate('Home')},
+            //     ],
+            //     { cancelable: false }
+            // )
+            // try {
+            //     await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+            //   } catch (e) {
+            //     console.log(e)
+            // }
+            this.setState({
+                loading: false
+            })
+            AsyncStorage.setItem('userData', JSON.stringify(userData));
+            console.log(userData);
+            this.props.navigation.navigate('Home')
+            
+        })
+        .catch(function(error) {
+            Alert.alert(
+                'Alert Title',
+                'Dang nhap that bai !',
+                [
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+            )
+        });
+    }
+
   render() {
     return (
         <ImageBackground source={background} style={{
@@ -33,16 +76,16 @@ export default class Login extends Component {
             <TextInput
                 style={style.inputUser}
                 underlineColorAndroid='transparent'
-                onChangeText={(user) => this.setState({user})}
-                value={this.state.user}
-                placeholder='Tên đăng nhập...'
+                onChangeText={(email) => this.setState({email})}
+                value={this.state.email}
+                placeholder='Email...'
                 placeholderTextColor='gray'
             />
             <TextInput
                 style={style.inputPassword}
                 underlineColorAndroid='transparent'
-                onChangeText={(pasword) => this.setState({pasword})}
-                value={this.state.pasword}
+                onChangeText={(password) => this.setState({password})}
+                value={this.state.password}
                 placeholder='Mật khẩu...'
                 placeholderTextColor='gray'
                 secureTextEntry={true}
@@ -53,12 +96,15 @@ export default class Login extends Component {
                 <Text style={{
                     color:'blue',
                     textAlign:'center',
-                    }}>
+                    }}
+                    onPress={this.Dangnhap}
+                >
                     ĐĂNG NHẬP
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={style.login}
+                onPress={() => this.props.navigation.navigate('Register')}
             >
                 <Text style={{
                     color:'blue',

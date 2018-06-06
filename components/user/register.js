@@ -6,19 +6,52 @@ import {
     Image,
     TouchableOpacity,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    Alert
 } from 'react-native';
 import background from '../../media/images/bg-login.jpg';
 import logo from '../../media/images/logo-app.png';
+import {firebaseApp} from '../databaseConfig';
 
-export default class Login extends Component {
+export default class Register extends Component {
     constructor(props){
         super(props);
         this.state = {
-            user:'',
-            pasword:''
+            email:'',
+            password:''
         }
     }
+
+    Dangky = () => {
+        firebaseApp.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => {
+            Alert.alert(
+                'Alert Title',
+                'Dang ky thanh cong : ' + this.state.email,
+                [
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'OK', onPress: () => this.props.navigation.navigate('Login')},
+                ],
+                { cancelable: false }
+              )
+              this.setState({
+                  email : '',
+                  password : ''
+              })
+        })
+        .catch(function(error) {
+            Alert.alert(
+                'Alert Title',
+                'Dang ky that bai !',
+                [
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                { cancelable: false }
+              )
+        });
+    }
+
   render() {
     return (
         <ImageBackground source={background} style={{
@@ -33,28 +66,29 @@ export default class Login extends Component {
             <TextInput
                 style={style.inputUser}
                 underlineColorAndroid='transparent'
-                onChangeText={(user) => this.setState({user})}
-                value={this.state.user}
-                placeholder='Tên đăng nhập...'
+                onChangeText={(email) => this.setState({email})}
+                value={this.state.email}
+                placeholder='Email...'
                 placeholderTextColor='gray'
             />
             <TextInput
                 style={style.inputPassword}
                 underlineColorAndroid='transparent'
-                onChangeText={(pasword) => this.setState({pasword})}
-                value={this.state.pasword}
+                onChangeText={(password) => this.setState({password})}
+                value={this.state.password}
                 placeholder='Mật khẩu...'
                 placeholderTextColor='gray'
                 secureTextEntry={true}
             />
             <TouchableOpacity
                 style={style.login}
+                onPress={this.Dangky}
             >
                 <Text style={{
                     color:'blue',
                     textAlign:'center',
                     }}>
-                    ĐĂNG NHẬP
+                    ĐĂNG KÝ
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -64,6 +98,7 @@ export default class Login extends Component {
                     color:'blue',
                     textAlign:'center',
                     }}>
+                    QUAY LẠI
                 </Text>
             </TouchableOpacity>
         </ImageBackground>
@@ -94,7 +129,7 @@ const style = StyleSheet.create({
     logo:{
         height:150,
         resizeMode: 'center',
-        marginTop:'25%'
+        marginTop:'15%'
     },
     login:{
         width:'60%',
