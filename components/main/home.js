@@ -5,11 +5,11 @@ import Banner from './bannerSlide';
 import HotProduct from './hotProduct';
 import NewProduct from './newProduct';
 
-export default class App extends Component {
+export default class Home extends Component {
   render() {
     return (
         <ScrollView style={{flex:1}}>
-            <HeaderBar title="Home"/>
+            <HeaderBar title="Trang chủ"/>
             <Banner/>
             <HotProduct/>
             <NewProduct/>

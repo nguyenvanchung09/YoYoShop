@@ -4,10 +4,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Login from './user/login';
 import Register from './user/register';
 import Home from './main/home';
+import PrDetail from './main/productDetail';
+import Contact from './main/contact';
 
 export const HomeStack = createStackNavigator(
     {
-        Home:Home
+        Home:Home,
+        Contact:Contact,
+        PrDetail:PrDetail,
     },
     {
         headerMode: 'none'
@@ -17,6 +21,7 @@ export const UserStack = createStackNavigator(
     {
         Login:Login,
         Register:Register,
+        Home:Home
     },
     {
         headerMode: 'none'
@@ -25,6 +30,19 @@ export const UserStack = createStackNavigator(
 
 export const RootStack = createBottomTabNavigator(
     {
+        User: {
+            screen: UserStack,
+            navigationOptions: {
+                tabBarLabel: 'Tài khoản',
+                tabBarIcon: ({ tintColor, focused }) => (
+                  <Ionicons
+                    name={focused ? 'ios-person' : 'ios-person-outline'}
+                    size={26}
+                    style={{ color: tintColor }}
+                  />
+                )
+            }
+        },
         Home: {
             screen: HomeStack,
             navigationOptions: {
@@ -38,22 +56,5 @@ export const RootStack = createBottomTabNavigator(
                 )
             }
         },
-        User: {
-            screen: UserStack,
-            navigationOptions: {
-                tabBarLabel: 'Tài khoản',
-                tabBarIcon: ({ tintColor, focused }) => (
-                  <Ionicons
-                    name={focused ? 'ios-person' : 'ios-person-outline'}
-                    size={26}
-                    style={{ color: tintColor }}
-                  />
-                )
-            }
-        }
-    },
-    {
-        initialRouteName: 'Home',
-        activeTintColor: '#F44336'
     }
 );

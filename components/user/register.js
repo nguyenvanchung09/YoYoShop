@@ -93,6 +93,7 @@ export default class Register extends Component {
             </TouchableOpacity>
             <TouchableOpacity
                 style={style.login}
+                onPress={() => this.props.navigation.goBack()}
             >
                 <Text style={{
                     color:'blue',

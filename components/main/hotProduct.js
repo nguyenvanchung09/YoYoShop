@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Text,View} from 'react-native';
 import styled from 'styled-components';
 import Carousel from 'react-native-snap-carousel';
+import { withNavigation } from 'react-navigation';
 
 import hotProduct1 from '../../media/images/hot-product1.jpg';
 import hotProduct2 from '../../media/images/hot-product2.jpg';
@@ -9,7 +10,7 @@ import hotProduct3 from '../../media/images/hot-product3.jpg';
 import hotProduct4 from '../../media/images/hot-product4.jpg';
 import hotProduct5 from '../../media/images/hot-product5.jpg';
 
-export default class HotProduct extends Component {
+class HotProduct extends Component {
     constructor(props){
         super();
         this.state = {
@@ -47,22 +48,14 @@ export default class HotProduct extends Component {
         };
       }
     
-      handleSnapToItem(index){
-        console.log("snapped to ", index)
-      }
-    
       _renderItem = ( {item, index} ) => {
         return (
             <ThumbnailBackgroundView>
               <CurrentVideoTO
-                 onPress={ () => { 
-                    console.log("clicked to index", index)
-                    this._carousel.snapToItem(index);
-                  }}
+                onPress={() => this.props.navigation.navigate('PrDetail')}
               >
                 <CurrentVideoImage source={item.thumbnail} />
               </CurrentVideoTO>
-                {/*<NextVideoImage source={{ uri: this.state.currentVideo.nextVideoId }}/>*/}
             </ThumbnailBackgroundView>
         );
       }
@@ -70,12 +63,11 @@ export default class HotProduct extends Component {
       render(){
         return (
           <CarouselBackgroundView>
-              <Title>Sản phẩm hot</Title>
+              <Title>SẢN PHẨM HOT</Title>
             <Carousel
               ref={ (c) => { this._carousel = c; } }
               data={this.state.images}
               renderItem={this._renderItem.bind(this)}
-              onSnapToItem={this.handleSnapToItem.bind(this)}
               sliderWidth={360}
               itemWidth={256}
               layout={'stack'}
@@ -87,10 +79,13 @@ export default class HotProduct extends Component {
         )
       }
     }
+    export default withNavigation(HotProduct);
 
     const Title = styled.Text`
         fontSize:18;
         marginLeft:10;
+        font-weight:bold;
+        color:black;
     `;
     
     const CurrentVideoImage = styled.Image`
@@ -112,4 +107,5 @@ export default class HotProduct extends Component {
     const CarouselBackgroundView = styled.View`
       height: 200;
       width: 100%;
+      margin-top:10px;
     `

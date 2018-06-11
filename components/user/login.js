@@ -18,7 +18,6 @@ export default class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loading: false,
             email:'',
             password:''
         }
@@ -27,26 +26,26 @@ export default class Login extends Component {
     Dangnhap = () => {
         firebaseApp.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
         .then((userData) => {
-            // Alert.alert(
-            //     'Alert Title',
-            //     'Dang nhap thanh cong : ' + this.state.email,
-            //     [
-            //       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-            //       {text: 'OK', onPress: () => this.props.navigation.navigate('Home')},
-            //     ],
-            //     { cancelable: false }
-            // )
+            Alert.alert(
+                'Alert Title',
+                'Dang nhap thanh cong',
+                [
+                  {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                  {text: 'OK', onPress: () => this.props.navigation.navigate('Home')},
+                ],
+                { cancelable: false }
+            )
             // try {
             //     await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
             //   } catch (e) {
             //     console.log(e)
             // }
-            this.setState({
-                loading: false
-            })
-            AsyncStorage.setItem('userData', JSON.stringify(userData));
-            console.log(userData);
-            this.props.navigation.navigate('Home')
+            // this.setState({
+            //     loading: false
+            // })
+            // AsyncStorage.setItem('userData', JSON.stringify(userData));
+            // console.log(userData);
+            // this.props.navigation.navigate('Home')
             
         })
         .catch(function(error) {

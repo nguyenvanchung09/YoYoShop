@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 
 var config = {
-    apiKey: "AIzaSyB8oJ-C43aSdK-nent5f0AiK68UYCx_B_g",
+    apiKey: "AIzaSyBE2RiVwQId94YqU5epVHsiBQ08WsYT3Gw",
     authDomain: "yoyoshop-b03c3.firebaseapp.com",
     databaseURL: "https://yoyoshop-b03c3.firebaseio.com",
     projectId: "yoyoshop-b03c3",
