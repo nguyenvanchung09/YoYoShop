@@ -6,12 +6,16 @@ import Register from './user/register';
 import Home from './main/home';
 import PrDetail from './main/productDetail';
 import Contact from './main/contact';
+import Cart from './main/cart';
 
 export const HomeStack = createStackNavigator(
     {
+        PrDetail:PrDetail,
+        Cart:Cart,
+        
         Home:Home,
         Contact:Contact,
-        PrDetail:PrDetail,
+        
     },
     {
         headerMode: 'none'

@@ -11,10 +11,10 @@ import {
 import styled from 'styled-components';
 import { withNavigation } from 'react-navigation';
 
-import newProduct1 from '../../media/images/new-product1.jpg';
-import newProduct2 from '../../media/images/new-product2.jpg';
-import newProduct3 from '../../media/images/new-product3.jpg';
-import newProduct4 from '../../media/images/new-product4.jpg';
+const newProduct1 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fnew-product1.jpg?alt=media&token=c1f11a67-9e08-470a-a826-4d7598286d9d';
+const newProduct2 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fnew-product2.jpg?alt=media&token=09164eba-a8da-47c2-8437-83ce0f04a4de';
+const newProduct3 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fnew-product3.jpg?alt=media&token=8ef60e62-0393-4897-8ded-6ad91103f583';
+const newProduct4 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fnew-product4.jpg?alt=media&token=f06f2049-955d-42c0-9ee7-ffbbcccbad46';
 
 class NewProduct extends Component {
       render(){
@@ -26,7 +26,7 @@ class NewProduct extends Component {
             onPress={() => this.props.navigation.navigate('PrDetail')}
             >
                 <View style={styles.product}>
-                  <Image style={styles.imgPr} source={newProduct1}/>
+                  <Image style={styles.imgPr} source={{uri:newProduct1}}/>
                   <Price>300.000 đ</Price>
                   <NamePr>Sản phẩm 1</NamePr>
                 </View>
@@ -35,7 +35,7 @@ class NewProduct extends Component {
             onPress={() => this.props.navigation.navigate('PrDetail')}
             >
               <View style={styles.product}>
-                <Image style={styles.imgPr} source={newProduct1}/>
+                <Image style={styles.imgPr} source={{uri:newProduct1}}/>
                 <Price>300.000 đ</Price>
                 <NamePr>Sản phẩm 1</NamePr>
               </View>
@@ -44,7 +44,7 @@ class NewProduct extends Component {
             onPress={() => this.props.navigation.navigate('PrDetail')}
             >
               <View style={styles.product}>
-                <Image style={styles.imgPr} source={newProduct1}/>
+                <Image style={styles.imgPr} source={{uri:newProduct1}}/>
                 <Price>300.000 đ</Price>
                 <NamePr>Sản phẩm 1</NamePr>
               </View>
@@ -53,7 +53,7 @@ class NewProduct extends Component {
             onPress={() => this.props.navigation.navigate('PrDetail')}
             >
               <View style={styles.product}>
-                <Image style={styles.imgPr} source={newProduct1}/>
+                <Image style={styles.imgPr} source={{uri:newProduct1}}/>
                 <Price>300.000 đ</Price>
                 <NamePr>Sản phẩm 1</NamePr>
               </View>

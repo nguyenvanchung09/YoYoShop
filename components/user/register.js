@@ -9,8 +9,8 @@ import {
     StyleSheet,
     Alert
 } from 'react-native';
-import background from '../../media/images/bg-login.jpg';
-import logo from '../../media/images/logo-app.png';
+const background = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fbg-login.jpg?alt=media&token=b96ed50b-a644-48ee-8483-60c38dc5cc8e';
+const logo = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Flogo-app.png?alt=media&token=454b3e80-7168-40d7-800e-48717e42513f';
 import {firebaseApp} from '../databaseConfig';
 
 export default class Register extends Component {
@@ -54,13 +54,13 @@ export default class Register extends Component {
 
   render() {
     return (
-        <ImageBackground source={background} style={{
+        <ImageBackground source={{uri:background}} style={{
                 width:'100%',
                 height:'100%',
                 alignItems:'center'
             }}>
             <Image
-                source={logo}
+                source={{uri:logo}}
                 style={style.logo}
             />
             <TextInput

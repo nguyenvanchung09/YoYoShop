@@ -6,8 +6,8 @@ export default class HeaderBar extends Component {
     return (
         <Header
             leftComponent={{ icon: 'menu', color: '#fff' }}
-            centerComponent={{ text: this.props.title, style: { color: '#fff' } }}
-            rightComponent={{ icon: 'home', color: '#fff' }}
+            centerComponent={{ text: this.props.title, style: { color: '#fff' }}}
+            rightComponent={{ icon: 'shopping-cart', color: '#fff' }}
         />
     )
   }

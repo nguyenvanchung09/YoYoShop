@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {View,Text,StyleSheet,Image} from 'react-native';
 import Swiper from 'react-native-swiper';
+
 import banner1 from '../../media/images/banner1.jpg';
 import banner2 from '../../media/images/banner2.jpg';
 import banner3 from '../../media/images/banner3.jpg';
