@@ -53,9 +53,10 @@ class PrDetail extends Component {
       }
 
       addToCart = () =>{
-          var product = this.state.product;
-          product['name'] = this.state.product.namePr;
-          product['price'] = this.state.product.price;
+        var product = this.state.product;
+        product['name'] = this.state.product.namePr;
+        product['price'] = this.state.product.price;
+        
         AsyncStorage.setItem('CART',JSON.stringify([product]))
       }
     

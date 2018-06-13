@@ -9,7 +9,7 @@ export default class Home extends Component {
   render() {
     return (
         <ScrollView style={{flex:1}}>
-            <HeaderBar title="Trang chủ"/>
+            <HeaderBar icon="menu" title="Trang chủ"/>
             <Banner/>
             <HotProduct/>
             <NewProduct/>

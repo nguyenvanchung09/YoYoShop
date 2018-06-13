@@ -8,8 +8,9 @@ import {
 import { Button, Icon} from 'native-base';
 import styled from 'styled-components';
 import HeaderBar from './header';
+import { withNavigation } from 'react-navigation';
 
-export default class Cart extends Component {
+class Cart extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -102,7 +103,7 @@ export default class Cart extends Component {
     render() {
         return (
             <View>
-                <HeaderBar title="Giỏ hàng của bạn"/>
+                <HeaderBar icon="close" title="Giỏ hàng của bạn"/>
                 <FlatList
                     style={{
                         marginTop:10
@@ -114,6 +115,8 @@ export default class Cart extends Component {
         )
     }
 }
+
+export default withNavigation(Cart);
 
 const Name = styled.Text`
     font-size:16px;

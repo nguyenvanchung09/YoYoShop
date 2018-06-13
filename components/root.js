@@ -10,10 +10,11 @@ import Cart from './main/cart';
 
 export const HomeStack = createStackNavigator(
     {
+        Home:Home,
         PrDetail:PrDetail,
         Cart:Cart,
         
-        Home:Home,
+        
         Contact:Contact,
         
     },
