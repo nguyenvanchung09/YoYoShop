@@ -12,8 +12,7 @@ import {
 import { Button, Icon} from 'native-base';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components';
-import { Rating } from 'react-native-elements';
-import HeaderBar from './header';
+import {Header,Rating} from 'react-native-elements';
 import Carousel from 'react-native-snap-carousel';
 import { withNavigation } from 'react-navigation';
 
@@ -111,7 +110,11 @@ class PrDetail extends Component {
   render() {
     return (
         <View style={{flex:1,backgroundColor:'#fff'}}>
-            <HeaderBar title="Chi tiết sản phẩm"/>
+            <Header
+                leftComponent={{onPress:() =>{this.props.navigation.goBack()},icon: 'arrow-back', color: '#fff' }}
+                centerComponent={{text: 'Chi tiết sản phẩm', style: { color: '#fff' }}}
+                rightComponent={{ icon: 'shopping-cart', color: '#fff', onPress: () => this.props.navigation.navigate('Cart') }}
+            />
             <ScrollView style={{flex:1}}>
                 <Swiper style={styles.wrapper} height={200}>
                     <View style={styles.slide1}>
@@ -250,24 +253,6 @@ class PrDetail extends Component {
                                 paddingRight:10
                             }}
                         >Thêm vào giỏ hàng</Text>
-                    </Button>
-                    <Button
-                        style={{
-                            backgroundColor:'blue',
-                            marginTop:10,
-                            width:'60%',
-                            alignSelf:'center',
-                            justifyContent:'center'
-                        }}
-                        onPress={() => this.props.navigation.navigate('Cart')}
-                    >
-                        <Text
-                            style={{
-                                color:'#fff',
-                                paddingLeft:10,
-                                paddingRight:10
-                            }}
-                        >Cart</Text>
                     </Button>
                     <Info>
                         Mẹ bỉm sữa nhận đan giày len, bikini len mẹ và bé theo yêu cầu với giá rẻ!

@@ -7,7 +7,7 @@ import {
     TouchableNativeFeedback,AsyncStorage}from 'react-native';
 import { Button, Icon} from 'native-base';
 import styled from 'styled-components';
-import HeaderBar from './header';
+import {Header} from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 
 class Cart extends Component {
@@ -103,7 +103,11 @@ class Cart extends Component {
     render() {
         return (
             <View>
-                <HeaderBar icon="close" title="Giỏ hàng của bạn"/>
+                <Header
+                    leftComponent={{onPress:() =>{this.props.navigation.goBack()},icon: 'close', color: '#fff' }}
+                    centerComponent={{text: 'Cart', style: { color: '#fff' }}}
+                    rightComponent={{ }}
+                />
                 <FlatList
                     style={{
                         marginTop:10
