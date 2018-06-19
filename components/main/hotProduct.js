@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {Text,View} from 'react-native';
 import styled from 'styled-components';
 import Carousel from 'react-native-snap-carousel';
-import { withNavigation } from 'react-navigation';
-
 
 const hotProduct1 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fhot-product1.jpg?alt=media&token=5e71556b-503f-451d-87ea-83cb096bc59e';
 const hotProduct2 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fhot-product2.jpg?alt=media&token=ede3ff38-7ced-41d2-a3ea-706e722d937d';
@@ -11,7 +9,7 @@ const hotProduct3 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.
 const hotProduct4 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fhot-product4.jpg?alt=media&token=6ca54558-be6e-4658-9f2a-0c6cf2d1037c';
 const hotProduct5 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fhot-product4.jpg?alt=media&token=6ca54558-be6e-4658-9f2a-0c6cf2d1037c';
 
-class HotProduct extends Component {
+export default class HotProduct extends Component {
     constructor(props){
         super();
         this.state = {
@@ -80,7 +78,6 @@ class HotProduct extends Component {
         )
       }
     }
-    export default withNavigation(HotProduct);
 
     const Title = styled.Text`
         fontSize:18;

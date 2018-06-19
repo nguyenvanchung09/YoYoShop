@@ -8,8 +8,9 @@ import {
     TouchableOpacity,
     Picker,
     TouchableNativeFeedback,
-    AsyncStorage}from 'react-native';
-import { Button, Icon} from 'native-base';
+    AsyncStorage,
+    ToastAndroid}from 'react-native';
+import { Button, Icon,Toast } from 'native-base';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components';
 import {Header,Rating} from 'react-native-elements';
@@ -21,6 +22,8 @@ import prDetail2 from '../../media/images/product-detail2.jpg';
 import prDetail3 from '../../media/images/product-detail3.jpg';
 import prDetail4 from '../../media/images/product-detail4.jpg';
 import prDetail5 from '../../media/images/product-detail5.jpg';
+import thumb from '../../media/images/thumb-cart.jpg';
+
 const newProduct1 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fnew-product1.jpg?alt=media&token=c1f11a67-9e08-470a-a826-4d7598286d9d';
 const newProduct2 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fnew-product2.jpg?alt=media&token=09164eba-a8da-47c2-8437-83ce0f04a4de';
 const newProduct3 = 'https://firebasestorage.googleapis.com/v0/b/yoyoshop-b03c3.appspot.com/o/images%2Fnew-product3.jpg?alt=media&token=8ef60e62-0393-4897-8ded-6ad91103f583';
@@ -41,27 +44,53 @@ class PrDetail extends Component {
       }
 
       increase = () =>{
-          this.setState({
-            num:this.state.num > 1 ? this.state.num - 1 : 1
-          })
+          this.setState(prevState => ({
+              product:{
+                ...prevState.product,
+                num:this.state.product.num > 1 ? this.state.product.num - 1 : 1
+              }
+            
+          }))
       }
       reduction = () =>{
-        this.setState({
-            num:this.state.num + 1
-          })
+        this.setState(prevState => ({
+            product:{
+                ...prevState.product,
+                num:this.state.product.num + 1
+            }
+            
+          }))
       }
 
       addToCart = () =>{
         var product = this.state.product;
         product['name'] = this.state.product.namePr;
         product['price'] = this.state.product.price;
+        product['thumb'] = this.state.product.thumb;
+        product['num'] = this.state.product.num;
         
-        AsyncStorage.setItem('CART',JSON.stringify([product]))
+        AsyncStorage.getItem("CART", (err, res) => {
+            if(!res) AsyncStorage.setItem("CART",JSON.stringify([product]));
+            else {
+              var items = JSON.parse(res);
+              items.push(product);
+              AsyncStorage.setItem("CART",JSON.stringify(items));
+            }
+
+            ToastAndroid.showWithGravityAndOffset(
+                'Sản phẩm đã được thêm vào giỏ hàng!',
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                0,
+                50
+              );
+          });
+        // AsyncStorage.setItem('CART',JSON.stringify([product]))
+        
       }
     
       init(){
         this.state = {
-        num:1,
           images: [
             {
               id: "WpIAc9by5iU",
@@ -86,9 +115,10 @@ class PrDetail extends Component {
           ],
           product:{
             namePr:'Mũ len',
-            price:'300.000 đ'
+            price:'300.000 đ',
+            thumb : thumb,
+            num:1
           }
-          
         };
       }
       _renderItem = ( {item, index} ) => {
@@ -134,6 +164,7 @@ class PrDetail extends Component {
                     </View>
                 </Swiper>
                 <Wrapper>
+                    <Image style={{display:'none'}} source={this.state.product.thumb}/>
                     <NamePr>{this.state.product.namePr}</NamePr>
                     <Price>{this.state.product.price}</Price>
                     <Rating
@@ -227,7 +258,7 @@ class PrDetail extends Component {
                                 paddingLeft: 30,
                                 paddingRight: 30}}
                             >
-                                <Text>{this.state.num}</Text>
+                                <Text>{this.state.product.num}</Text>
                             </View>
                             <Button light
                                 onPress={this.reduction}
@@ -236,13 +267,17 @@ class PrDetail extends Component {
                             </Button>
                         </View>
                     </View>
-                    <Button
+                    <TouchableOpacity
                         style={{
                             backgroundColor:'blue',
                             marginTop:10,
                             width:'60%',
                             alignSelf:'center',
-                            justifyContent:'center'
+                            justifyContent:'center',
+                            alignItems:'center',
+                            borderRadius:5,
+                            paddingBottom:12,
+                            paddingTop:12
                         }}
                         onPress={this.addToCart}
                     >
@@ -253,7 +288,7 @@ class PrDetail extends Component {
                                 paddingRight:10
                             }}
                         >Thêm vào giỏ hàng</Text>
-                    </Button>
+                    </TouchableOpacity>
                     <Info>
                         Mẹ bỉm sữa nhận đan giày len, bikini len mẹ và bé theo yêu cầu với giá rẻ!
                         Không cần đặt cọc, chỉ cần cho e kích cỡ chân hay số đo tương ứng của bé là được thôi ah! vì ko cần nên mom đặt rồi vui lòng nhận hàng giùm e, boom hàng tội e lắm ah!
@@ -286,6 +321,8 @@ class PrDetail extends Component {
   }
 }
 
+export default withNavigation(PrDetail);
+
 const styles = StyleSheet.create({
     wrapper: {
       flexDirection:'row'
@@ -315,7 +352,6 @@ const styles = StyleSheet.create({
     }
 });
 
-export default withNavigation(PrDetail);
 
 const Title = styled.Text`
 fontSize:18;

@@ -1,6 +1,7 @@
 import React from 'react';
-import { createStackNavigator,createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator,createBottomTabNavigator,createDrawerNavigator,DrawerItems } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {View,Text,Image} from 'react-native';
 import Login from './user/login';
 import Register from './user/register';
 import Home from './main/home';
@@ -8,25 +9,81 @@ import PrDetail from './main/productDetail';
 import Contact from './main/contact';
 import Cart from './main/cart';
 
-export const HomeStack = createStackNavigator(
+import bgDrawer from '../media/images/logo-app.png';
+
+const DrawerContent = (props) => (
+    <View>
+      <View
+        style={{
+          backgroundColor: 'yellow',
+          height: 140,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Image
+            style={{
+                resizeMode:'center'
+            }}
+            source={bgDrawer}
+        />
+      </View>
+      <DrawerItems {...props} />
+    </View>
+  )
+
+const Drawer = createDrawerNavigator(
     {
-        Home:Home,
-        PrDetail:PrDetail,
-        Cart:Cart,
+        Contact:{
+            screen:Contact,
+            navigationOptions:{
+                drawerLabel: 'Liên hệ',
+                drawerIcon:<Ionicons name='ios-map' size={20} color='#0dc45c'/>
+            }
+        },
+        Home:{
+            screen:Home,
+            navigationOptions:{
+                drawerLabel: 'Trang chủ',
+                drawerIcon:<Ionicons name='md-home' size={20} color='#0dc45c'/>
+            }
+        },
         
-        
-        Contact:Contact,
-        
+        User:{
+            screen:Login,
+            navigationOptions:{
+                drawerLabel: 'Đăng nhập',
+                drawerIcon:<Ionicons name='ios-person' size={20} color='#0dc45c'/>
+            }
+        }
     },
     {
-        headerMode: 'none'
+        drawerBackgroundColor: 'blue',
+        contentOptions:{
+            inactiveTintColor: "#fff",
+            activeTintColor: "#0dc45c",
+            labelStyle :{
+                marginLeft:0
+            }
+        },
+        contentComponent: DrawerContent,
     }
 )
-export const UserStack = createStackNavigator(
+
+const User = createStackNavigator(
     {
         Login:Login,
-        Register:Register,
-        Home:Home
+    }
+)
+
+export const HomeStack = createStackNavigator(
+    {
+        Drawer:{
+            screen:Drawer,
+        },
+        PrDetail:PrDetail,
+        Cart:Cart,
+        Register:Register
     },
     {
         headerMode: 'none'
@@ -36,7 +93,7 @@ export const UserStack = createStackNavigator(
 export const RootStack = createBottomTabNavigator(
     {
         User: {
-            screen: UserStack,
+            screen: User,
             navigationOptions: {
                 tabBarLabel: 'Tài khoản',
                 tabBarIcon: ({ tintColor, focused }) => (
@@ -49,7 +106,7 @@ export const RootStack = createBottomTabNavigator(
             }
         },
         Home: {
-            screen: HomeStack,
+            screen: Home,
             navigationOptions: {
                 tabBarLabel: 'Trang chủ',
                 tabBarIcon: ({ tintColor, focused }) => (

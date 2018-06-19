@@ -11,14 +11,14 @@ export default class Home extends Component {
     return (
       <View style={{flex:1}}>
         <Header
-            leftComponent={{icon: 'menu', color: '#fff' }}
+            leftComponent={{icon: 'menu',onPress:()=>this.props.navigation.openDrawer(), color: '#fff' }}
             centerComponent={{text: 'Trang chủ', style: { color: '#fff' }}}
             rightComponent={{ icon: 'shopping-cart', color: '#fff', onPress: () => this.props.navigation.navigate('Cart') }}
         />
         <ScrollView style={{flex:1}}>
             <Banner/>
-            <HotProduct/>
-            <NewProduct/>
+            <HotProduct navigation={this.props.navigation}/>
+            <NewProduct navigation={this.props.navigation}/>
         </ScrollView>
       </View>
     );
